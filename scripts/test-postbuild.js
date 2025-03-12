@@ -1,6 +1,7 @@
 const fs = require('fs');
+const {exec} = require('child_process');
 
-function permissions(path, name = false)
+async function permissions(path, name = false)
 {
 	let f, r, w, x;
 
@@ -34,16 +35,31 @@ function permissions(path, name = false)
 		}
 	}
 
-	console.log(name+' | F:'+(perm.f ? 'OK' : '--')+' | R:'+(perm.r ? 'OK' : '--')+' | W:'+(perm.w ? 'OK' : '--')+' | X:'+(perm.x ? 'OK' : '--')+' | Exists:'+(fs.existsSync(path) ? 'OK' : '--'));
+	return new Promise(function(resolve) {
+
+		exec('ls -l "'+path+'"', function(error, stdout, stderr) {
+
+			const ls = stdout.match(/\s*([a-z\-]+)/)?.[1] || '';
+			console.log(name+' | F:'+(perm.f ? 'OK' : '--')+' | R:'+(perm.r ? 'OK' : '--')+' | W:'+(perm.w ? 'OK' : '--')+' | X:'+(perm.x ? 'OK' : '--')+' | Exists:'+(fs.existsSync(path) ? 'OK' : '--')+' | '+ls);
+
+			resolve();
+
+		});
+
+	});
 }
 
 const original = './binaries/darwin';
 const darwinMas = './dist/mas-universal/electron-builder-permissions-bug.app/Contents/Resources/app.asar.unpacked/binaries/darwin';
 
-// Original
-permissions(original+'/x64/binary', 'Original x64    ');
-permissions(original+'/arm64/binary', 'Original arm64  ');
+(async function(){
 
-// Darwin Mas
-permissions(darwinMas+'/x64/binary', 'Darwin Mas x64  ');
-permissions(darwinMas+'/arm64/binary', 'Darwin Mas arm64');
+	// Original
+	await permissions(original+'/x64/binary', 'Original x64    ');
+	await permissions(original+'/arm64/binary', 'Original arm64  ');
+
+	// Darwin Mas
+	await permissions(darwinMas+'/x64/binary', 'Darwin Mas x64  ');
+	await permissions(darwinMas+'/arm64/binary', 'Darwin Mas arm64');
+
+})()
