@@ -20,14 +20,15 @@
     "asar": true,
     "files": [
       "**/*",
-      "!binaries/**/*",
-      "binaries/${os}/${arch}"
+      "!binaries",
+      "binaries/${platform}/${arch}/*"
     ],
     "asarUnpack": [
       "binaries"
     ],
     "mas": {
-      "type": "distribution"
+      "type": "distribution",
+      "singleArchFiles": "binaries/**"
     }
   }
 }
