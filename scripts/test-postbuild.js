@@ -38,7 +38,7 @@ function permissions(path, name = false)
 }
 
 const original = './binaries/darwin';
-const darwinMas = './dist/mas-universal/OpenComic.app/Contents/Resources/app.asar.unpacked/binaries/darwin';
+const darwinMas = './dist/mas-universal/electron-builder-permissions-bug.app/Contents/Resources/app.asar.unpacked/binaries/darwin';
 
 // Original
 permissions(original+'/x64/binary', 'Original x64    ');

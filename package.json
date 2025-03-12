@@ -1,7 +1,7 @@
 {
   "name": "electron-builder-permissions-bug",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "www/js/main.js",
   "scripts": {
     "start": "electron www/js/main.js --no-sandbox",
     "build-mac-store": "electron-builder --universal --mac mas && npm run postbuild",
@@ -15,8 +15,8 @@
     "electron-builder": "^25.1.8"
   },
   "build": {
-    "appId": "org.opencomic.app",
-    "productName": "OpenComic",
+    "appId": "electron.builder.bug",
+    "productName": "electron-builder-permissions-bug",
     "asar": true,
     "files": [
       "**/*",
