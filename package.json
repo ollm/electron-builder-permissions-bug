@@ -28,7 +28,8 @@
     ],
     "mas": {
       "type": "distribution",
-      "singleArchFiles": "binaries/**"
+      "singleArchFiles": "binaries/**",
+      "mergeASARs": true
     }
   }
 }
