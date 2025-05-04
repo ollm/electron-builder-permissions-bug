@@ -51,15 +51,21 @@ async function permissions(path, name = false)
 
 const original = './binaries/darwin';
 const darwinMas = './dist/mas-universal/electron-builder-permissions-bug.app/Contents/Resources/app.asar.unpacked/binaries/darwin';
+const darwinMasX64 = './dist/mas-universal/electron-builder-permissions-bug.app/Contents/Resources/app-x64.asar.unpacked/binaries/darwin';
+const darwinMasArm64 = './dist/mas-universal/electron-builder-permissions-bug.app/Contents/Resources/app-arm64.asar.unpacked/binaries/darwin';
 
 (async function(){
 
 	// Original
-	await permissions(original+'/x64/binary', 'Original x64    ');
-	await permissions(original+'/arm64/binary', 'Original arm64  ');
+	await permissions(original+'/x64/binary', 'Original x64                              ');
+	await permissions(original+'/arm64/binary', 'Original arm64                            ');
 
 	// Darwin Mas
-	await permissions(darwinMas+'/x64/binary', 'Darwin Mas x64  ');
-	await permissions(darwinMas+'/arm64/binary', 'Darwin Mas arm64');
+	await permissions(darwinMas+'/x64/binary', 'Darwin Mas x64 (app.asar.unpacked)        ');
+	await permissions(darwinMas+'/arm64/binary', 'Darwin Mas arm64 (app.asar.unpacked)      ');
+
+	// Darwin Mas (mergeASARs: false)
+	await permissions(darwinMasX64+'/x64/binary', 'Darwin Mas x64 (app-x64.asar.unpacked)    ');
+	await permissions(darwinMasArm64+'/arm64/binary', 'Darwin Mas arm64 (app-arm64.asar.unpacked)');
 
 })()
